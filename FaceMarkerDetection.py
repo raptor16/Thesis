@@ -78,6 +78,7 @@ def head_pose_estimator(shape, file_path):
                                                      translation_vector,
                                                      camera_matrix, dist_coeffs)
 
+
     for p in image_points:
         cv2.circle(im, (int(p[0]), int(p[1])), 3, (0, 0, 255), -1)
 
@@ -89,6 +90,23 @@ def head_pose_estimator(shape, file_path):
     # Display image
     cv2.imshow("Output", im)
     cv2.waitKey(0)
+    return construct_transformation_matrix(rotation_vector, translation_vector)
+    # TODO: return the head pose matrix
+
+
+def construct_transformation_matrix(rotation_vector, translation_vector):
+    transform_shape = (4, 4)
+    transform = np.zeros(transform_shape, dtype=float)
+    transform[3][3] = 1.
+
+    rotation_matrix, _ = cv2.Rodrigues(rotation_vector)
+    for i in range(rotation_matrix.shape[0]):
+        for j in range(rotation_matrix.shape[1]):
+            transform[i][j] = rotation_matrix[i][j]
+    for i in range(translation_vector.shape[0]):
+        transform[i][3] = translation_vector[i]
+
+    return transform
 
 
 if __name__ == '__main__':
