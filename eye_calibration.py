@@ -74,4 +74,3 @@ if __name__ == '__main__':
         head_pose = fmd.head_pose_estimator(shape, f)
         eye_pose = get_eye_pose(head_pose)
         overlay_normal(f, shape)
-        # TODO overlay normal onto image at eye centre.

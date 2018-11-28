@@ -91,7 +91,6 @@ def head_pose_estimator(shape, file_path):
     cv2.imshow("Output", im)
     cv2.waitKey(0)
     return construct_transformation_matrix(rotation_vector, translation_vector)
-    # TODO: return the head pose matrix
 
 
 def construct_transformation_matrix(rotation_vector, translation_vector):
